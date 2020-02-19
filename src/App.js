@@ -12,18 +12,6 @@ class App extends React.Component {
     showPersons: false
   };
 
-  switchNameHandler = newName => {
-    console.log('I was Clicked!');
-    // DON'T DO THIS: this.state.persons['0'].name = 'Carlos Andres';
-    this.setState({
-      persons: [
-        { name: newName, age: 28 },
-        { name: 'Azusa', age: 26 },
-        { name: 'Cholo', age: 25 }
-      ]
-    });
-  };
-
   nameChangedHandler = event => {
     this.setState({
       persons: [
@@ -32,6 +20,12 @@ class App extends React.Component {
         { name: 'Cholo', age: 25 }
       ]
     });
+  };
+
+  deletePersonHandler = personIndex => {
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({ persons });
   };
 
   togglePersonHandler = () => {
@@ -52,22 +46,16 @@ class App extends React.Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-          <Person
-            name={this.state.persons[0].name}
-            age={this.state.persons[0].age}
-          />
-          <Person
-            name={this.state.persons[1].name}
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, 'Calvin')}
-            changed={this.nameChangedHandler}
-          >
-            My Hobbies: Play Piano
-          </Person>
-          <Person
-            name={this.state.persons[2].name}
-            age={this.state.persons[2].age}
-          />
+          {this.state.persons.map((person, index) => {
+            return (
+              <Person
+                key={index}
+                name={person.name}
+                age={person.age}
+                click={() => this.deletePersonHandler(index)}
+              />
+            );
+          })}
         </div>
       );
     }
@@ -79,7 +67,7 @@ class App extends React.Component {
         <button style={style} onClick={this.togglePersonHandler}>
           Toggle Persons
         </button>
-        { persons }
+        {persons}
       </div>
     );
     // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Does this work now?'));
