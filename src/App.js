@@ -5,20 +5,23 @@ import Person from './Person/Person';
 class App extends React.Component {
   state = {
     persons: [
-      { name: 'Carlos', age: 28 },
-      { name: 'Azusa', age: 26 },
-      { name: 'Cholo', age: 25 }
+      { name: 'Carlos', age: 28, id: 1 },
+      { name: 'Azusa', age: 26, id: 2 },
+      { name: 'Cholo', age: 25, id: 3 }
     ],
     showPersons: false
   };
 
-  nameChangedHandler = event => {
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => p.id === id);
+    const person = { ...this.state.persons[personIndex] };
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
     this.setState({
-      persons: [
-        { name: 'Carlos', age: 28 },
-        { name: event.target.value, age: 26 },
-        { name: 'Cholo', age: 25 }
-      ]
+      persons
     });
   };
 
@@ -49,10 +52,11 @@ class App extends React.Component {
           {this.state.persons.map((person, index) => {
             return (
               <Person
-                key={index}
+                key={person.id}
                 name={person.name}
                 age={person.age}
                 click={() => this.deletePersonHandler(index)}
+                changed={event => this.nameChangedHandler(event, person.id)}
               />
             );
           })}
