@@ -1,20 +1,8 @@
 import React from 'react';
+
 import './App.css';
 import Person from './Person/Person';
-import styled from 'styled-components';
-
-const StyledButton = styled.button`
-  background-color: ${props => props.myAlt ? 'red': 'green'};
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: ${props => props.myAlt ? 'salmon': 'lightgreen'};
-    color: black;
-  }
-`;
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends React.Component {
   state = {
@@ -29,6 +17,7 @@ class App extends React.Component {
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(p => p.id === id);
     const person = { ...this.state.persons[personIndex] };
+
     person.name = event.target.value;
 
     const persons = [...this.state.persons];
@@ -70,18 +59,19 @@ class App extends React.Component {
         <div>
           {this.state.persons.map((person, index) => {
             return (
-              <Person
-                key={person.id}
-                name={person.name}
-                age={person.age}
-                click={() => this.deletePersonHandler(index)}
-                changed={event => this.nameChangedHandler(event, person.id)}
-              />
+              <ErrorBoundary key={person.id}>
+                <Person
+                  key={person.id}
+                  name={person.name}
+                  age={person.age}
+                  click={() => this.deletePersonHandler(index)}
+                  changed={event => this.nameChangedHandler(event, person.id)}
+                />
+              </ErrorBoundary>
             );
           })}
         </div>
       );
-
 
       // style.backgroundColor = 'red';
       // style[':hover'] = {
@@ -104,9 +94,9 @@ class App extends React.Component {
       <div className="App">
         <h1>Hi, I'm a React App</h1>
         <p className={classes.join(' ')}>This is really working!</p>
-        <StyledButton myAlt={this.state.showPersons} onClick={this.togglePersonHandler}>
+        <button className="button" onClick={this.togglePersonHandler}>
           Toggle Persons
-        </StyledButton>
+        </button>
         {persons}
       </div>
     );
