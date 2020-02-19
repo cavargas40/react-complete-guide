@@ -73,8 +73,7 @@ class App extends React.Component {
       style[':hover'] = {
         backgroundColor: 'salmon',
         color: 'black'
-
-      }
+      };
     }
 
     let classes = [];
@@ -88,14 +87,16 @@ class App extends React.Component {
     }
 
     return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!</p>
-        <button style={style} onClick={this.togglePersonHandler}>
-          Toggle Persons
-        </button>
-        {persons}
-      </div>
+      <Radium.StyleRoot>
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join(' ')}>This is really working!</p>
+          <button style={style} onClick={this.togglePersonHandler}>
+            Toggle Persons
+          </button>
+          {persons}
+        </div>
+      </Radium.StyleRoot>
     );
     // return React.createElement('div', { className: 'App' }, React.createElement('h1', null, 'Does this work now?'));
   }
