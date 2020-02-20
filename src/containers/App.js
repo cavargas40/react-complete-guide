@@ -5,6 +5,24 @@ import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
+  }
+  //@deprecated
+  // componentWillMount() {
+  //   console.log('[App.js] componentWillMount');
+  // }
+
   state = {
     persons: [
       { name: 'Carlos', age: 28, id: 1 },
@@ -40,19 +58,7 @@ class App extends React.Component {
   };
 
   render() {
-    // const style = {
-    //   backgroundColor: 'green',
-    //   color: 'white',
-    //   font: 'inherit',
-    //   border: '1px solid blue',
-    //   padding: '8px',
-    //   cursor: 'pointer',
-    //   ':hover': {
-    //     backgroundColor: 'lightgreen',
-    //     color: 'black'
-    //   }
-    // };
-
+    console.log('[App.js] render');
     let persons = null;
     if (this.state.showPersons) {
       persons = (
@@ -62,22 +68,6 @@ class App extends React.Component {
           changed={this.nameChangedHandler}
         />
       );
-
-      // style.backgroundColor = 'red';
-      // style[':hover'] = {
-      //   backgroundColor: 'salmon',
-      //   color: 'black'
-      // };
-    }
-
-    let classes = [];
-
-    if (this.state.persons.length <= 2) {
-      classes.push('red');
-    }
-
-    if (this.state.persons.length <= 1) {
-      classes.push('bold');
     }
 
     return (
