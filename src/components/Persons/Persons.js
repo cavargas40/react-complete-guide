@@ -2,28 +2,9 @@ import React from 'react';
 import Person from './Person/Person';
 
 class Persons extends React.PureComponent {
-  // static getDerivedStateFromProps(props, state) {
-  //   console.log('[Persons.js] getDerivedStateFromProps', props);
-  //   return state;
-  // }
-
-  // componentWillReceiveProps(props){
-  //   console.log('[Persons.js] componentWillReceiveProps', props);
-  // }
-
   componentWillUnmount() {
     console.log('[Persons.js] componentWillUnmount');
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log('[Persons.js] shouldComponentUpdate');
-
-  //   return (
-  //     nextProps.persons !== this.props.persons ||
-  //     nextProps.changed !== this.props.changed ||
-  //     nextProps.clicked !== this.props.clicked
-  //   );
-  // }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
     console.log('[Persons.js] getSnapshotBeforeUpdate');
