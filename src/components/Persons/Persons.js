@@ -13,12 +13,13 @@ class Persons extends React.Component {
 
   componentWillUnmount(){
     console.log('[Persons.js] componentWillUnmount');
-    
+
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     console.log('[Persons.js] shouldComponentUpdate');
-    return true;
+
+    return nextProps.persons !== this.props.persons;
   }
 
   getSnapshotBeforeUpdate(prevProps, prevState) {
