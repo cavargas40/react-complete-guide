@@ -11,6 +11,11 @@ class Persons extends React.Component {
   //   console.log('[Persons.js] componentWillReceiveProps', props);
   // }
 
+  componentWillUnmount(){
+    console.log('[Persons.js] componentWillUnmount');
+    
+  }
+
   shouldComponentUpdate(nextProps, nextState) {
     console.log('[Persons.js] shouldComponentUpdate');
     return true;
