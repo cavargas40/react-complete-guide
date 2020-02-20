@@ -1,8 +1,8 @@
 import React from 'react';
 
 import './App.css';
-import Person from '../components/Persons/Person/Person';
-import ErrorBoundary from '../components/ErrorBoundary/ErrorBoundary';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends React.Component {
   state = {
@@ -56,21 +56,11 @@ class App extends React.Component {
     let persons = null;
     if (this.state.showPersons) {
       persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <ErrorBoundary key={person.id}>
-                <Person
-                  key={person.id}
-                  name={person.name}
-                  age={person.age}
-                  click={() => this.deletePersonHandler(index)}
-                  changed={event => this.nameChangedHandler(event, person.id)}
-                />
-              </ErrorBoundary>
-            );
-          })}
-        </div>
+        <Persons
+          persons={this.state.persons}
+          clicked={this.deletePersonHandler}
+          changed={this.nameChangedHandler}
+        />
       );
 
       // style.backgroundColor = 'red';
@@ -92,11 +82,11 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!</p>
-        <button className="button" onClick={this.togglePersonHandler}>
-          Toggle Persons
-        </button>
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonHandler}
+        />
         {persons}
       </div>
     );
